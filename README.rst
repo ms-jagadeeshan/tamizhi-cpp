@@ -15,7 +15,7 @@ Installation
 
 .. code-block:: bash
 
-   git clone git@github.com:ms-jagadeeshan/tamizhi-cpp
+   git clone --recurse-submodules git@github.com:ms-jagadeeshan/tamizhi-cpp
    cd tamizhi-cpp && mkdir build && cd build
    cmake ..
    make -j$(nproc)
