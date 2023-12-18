@@ -1,3 +1,6 @@
 [submodule "data"]
 	path = data
 	url = git@github.com:ms-jagadeeshan/tamizhi-cpp-data
+[submodule "tamizhi/3rd-party"]
+	path = tamizhi/3rd-party
+	url = git@github.com:ms-jagadeeshan/tamizhi-cpp-3rd-party
