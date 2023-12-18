@@ -8,10 +8,10 @@ int main(void)
     // Can give json, xml, csv
     auto mappings = tmz::tcMappingLoader::read(crFilePath("data://mappings/ta_mappings.xml"));
     // Printing the mappping.
-    for (const auto& mapping : mappings)
-    {
-        // mapping->print();
-    }
+    // for (const auto& mapping : mappings)
+    // {
+    // mapping->print();
+    // }
 
     std::string data1 = "世界有";
     tmzPrint("data1 size : %zu\n", data1.size());

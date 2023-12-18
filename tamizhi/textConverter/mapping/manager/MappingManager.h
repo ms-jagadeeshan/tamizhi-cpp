@@ -1,14 +1,17 @@
 #pragma once
 
 #include "tamizhi/core/base/Core.h"
+#include "tamizhi/core/base/Singleton.h"
 #include "tamizhi/textConverter/utils/ConversionType.h"
 
 namespace tmz
 {
 class tcMapping;
 
-class tcMappingManager
+class tcMappingManager : public crSingleton<tcMappingManager>
 {
+    TMZ_AUTO_SINGLETON(tcMappingManager);
+
 public:
     tcMappingManager();
     ~tcMappingManager();
