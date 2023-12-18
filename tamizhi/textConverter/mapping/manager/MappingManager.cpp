@@ -7,7 +7,8 @@
 
 void tmz::tcMappingManager::registerMapping(const tmzSP<tmz::tcMapping>& mapping)
 {
-    registerMappingInternal(mapping);
+    const auto& ref = getInstance();
+    ref->registerMappingInternal(mapping);
 }
 
 /********************************************************************/
@@ -26,8 +27,9 @@ void tmz::tcMappingManager::unregisterMapping(const std::string& encodeName, tcC
 
 tmzCollection<std::string> tmz::tcMappingManager::getLangList()
 {
+    const auto& ref = getInstance();
     tmzCollection<std::string> langs;
-    std::transform(mLangMap.begin(), mLangMap.end(), std::back_inserter(langs), tmz::Lambdas::extractKey);
+    std::transform(ref->mLangMap.begin(), ref->mLangMap.end(), std::back_inserter(langs), tmz::Lambdas::extractKey);
     return langs;
 }
 
@@ -35,8 +37,9 @@ tmzCollection<std::string> tmz::tcMappingManager::getLangList()
 
 tmzCollection<std::string> tmz::tcMappingManager::getEncodingList()
 {
+    const auto& ref = getInstance();
     tmzCollection<std::string> encodings;
-    std::transform(mEncodeMap.begin(), mEncodeMap.end(), std::back_inserter(encodings), tmz::Lambdas::extractKey);
+    std::transform(ref->mEncodeMap.begin(), ref->mEncodeMap.end(), std::back_inserter(encodings), tmz::Lambdas::extractKey);
     return encodings;
 }
 
@@ -44,6 +47,7 @@ tmzCollection<std::string> tmz::tcMappingManager::getEncodingList()
 
 void tmz::tcMappingManager::registerMappingInternal(const tmzSP<tcMapping>& mapping)
 {
+    const auto& ref = getInstance();
     auto langCode = mapping->langCode();
     if (langCode.empty())
         langCode = "unknown";
@@ -54,8 +58,8 @@ void tmz::tcMappingManager::registerMappingInternal(const tmzSP<tcMapping>& mapp
 
     int index = static_cast<int>(mapping->mappingType());
 
-    mLangMap[langCode][encodeName][index] = mapping;
-    mEncodeMap[encodeName][index] = mapping;
+    ref->mLangMap[langCode][encodeName][index] = mapping;
+    ref->mEncodeMap[encodeName][index] = mapping;
 }
 
 /********************************************************************/

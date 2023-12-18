@@ -1,16 +1,19 @@
+#pragma once
 #include <memory>
 #include <mutex>
+
+/********************************************************************/
 
 template <typename DerivedT>
 class crSingleton
 {
 public:
-    static DerivedT& getInstance()
+    static DerivedT*& getInstance()
     {
         std::call_once(onceFlag, []() {
-            instance.reset(new DerivedT());
+            instance = new DerivedT();
         });
-        return *instance;
+        return instance;
     }
 
     // Delete copy constructor and copy assignment operator
@@ -24,6 +27,14 @@ protected:
     ~crSingleton() = default;
 
 private:
-    static std::unique_ptr<DerivedT> instance;
+    static DerivedT* instance;
     static std::once_flag onceFlag;
 };
+
+/********************************************************************/
+
+#define TMZ_AUTO_SINGLETON(DerivedT) \
+private:                             \
+    friend class crSingleton<DerivedT>;
+
+/********************************************************************/
