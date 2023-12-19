@@ -1,0 +1,10 @@
+# Simple-Web-Server (#include <server_https.hpp> ...)
+function(project_init_web_server)
+  set(SIMPLE_WEB_SERVER_SRC ${PROJECT_DIR_3RD_PARTY}/Simple-Web-Server)
+  add_subdirectory(${SIMPLE_WEB_SERVER_SRC})
+endfunction()
+
+function(project_init_c4core)
+  set(C4CORE_SRC ${PROJECT_DIR_3RD_PARTY}/c4core)
+  add_subdirectory(${C4CORE_SRC})
+endfunction()
