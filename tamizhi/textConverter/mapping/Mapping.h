@@ -27,6 +27,8 @@ public:
     void setEncodeToUnicode(bool isEncodeToUnicode = true);
     // Set the max match length.
     void maxMatchLength(int maxMatchLength);
+    // Set the gcd of character size.
+    void gcdCharSize(int gcdCharSize);
     // Insert the element to the mapping.
     bool insert(std::string key, std::string value);
     // Insert the element from vector of keys and vector of values.
@@ -48,6 +50,8 @@ public:
     tcConversionType mappingType();
     // Get the max match length.
     std::size_t maxMatchLength();
+    // Get the gcd of character size.
+    std::size_t gcdCharSize();
     // Print the mapping.
     void print();
 
@@ -64,7 +68,9 @@ private:
     // Store the type of mapping.
     tcConversionType mMappingType = ENCODE_TO_UNICODE;
     // Maximum match lenght.
-    std::size_t mMaxMatchLength = 2;
+    std::size_t mMaxMatchLength = 4;
+    // Least character unit size in the mapping.
+    std::size_t mGcdCharSize = 1;
     // Mapping from encoding to unicode.
     tmzSP<tmzEUMap> mMapping = std::make_shared<tmzEUMap>();
 };

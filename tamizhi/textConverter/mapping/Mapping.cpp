@@ -51,6 +51,13 @@ void tmz::tcMapping::maxMatchLength(int maxMatchLength)
 
 /********************************************************************/
 
+void tmz::tcMapping::gcdCharSize(int gcdCharSize)
+{
+    mGcdCharSize = gcdCharSize;
+}
+
+/********************************************************************/
+
 bool tmz::tcMapping::insert(std::string key, std::string value)
 {
     mMapping->emplace(key, value);
@@ -81,7 +88,7 @@ std::string tmz::tcMapping::convert(const std::string& input)
         const auto& old_it = it;
 
         for (auto len = std::min(std::distance(it, input.end()), static_cast<std::ptrdiff_t>(mMaxMatchLength));
-             len > 0; len = len - 3)
+             len > 0; len = len - mGcdCharSize)
         {
             auto substr = std::string(it, it + len);
             auto mappingItr = mMapping->find(substr);
@@ -94,6 +101,7 @@ std::string tmz::tcMapping::convert(const std::string& input)
             }
         }
 
+        // If not found in mapping, just increment iterator.
         if (old_it == it)
         {
             result += *it++;
@@ -143,6 +151,12 @@ std::size_t tmz::tcMapping::maxMatchLength()
 {
     return mMaxMatchLength;
 }
+/********************************************************************/
+
+std::size_t tmz::tcMapping::gcdCharSize()
+{
+    return mGcdCharSize;
+}
 
 /********************************************************************/
 
@@ -152,7 +166,8 @@ void tmz::tcMapping::print()
     tmzPrint("Language Code: %s\n", mLangCode.c_str());
     tmzPrint("Encode Name  : %s\n", mEncodeName.c_str());
     tmzPrint("Mapping type : %s\n", mMappingType == ENCODE_TO_UNICODE ? "Encode to Unicode" : "Unicode to encode");
-    tmzPrint("Max Matching Length: %zu\n", mMaxMatchLength);
+    tmzPrint("Max Matching Length  : %zu\n", mMaxMatchLength);
+    tmzPrint("GCD of Character Size: %zu\n", mGcdCharSize);
     tmzPrint("Mappings>\n");
     for (const auto& [key, value] : *mMapping)
     {

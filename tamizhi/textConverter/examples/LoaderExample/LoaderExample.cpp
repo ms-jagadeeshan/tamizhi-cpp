@@ -28,7 +28,7 @@ int main(void)
     auto result = mappings[1]->convert(unicodeData);
     timer.printTimeElapsed();
 
-    // tmz::saveToFile(result, crFilePath("data://tests/unicodeToEncode.txt"));
+    tmz::saveToFile(result, crFilePath("data://tests/unicodeToEncode.txt"));
 
     std::string encodeData;
     // tmz::loadFromFile(encodeData, crFilePath("data://tests/unicodeToEncode.txt"));

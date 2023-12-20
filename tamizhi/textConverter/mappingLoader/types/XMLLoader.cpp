@@ -73,12 +73,15 @@ tmzSPCollection<tmz::tcMapping> tmz::tcXMLLoader::readEncode(tinyxml2::XMLElemen
 
     int unicodeToEncodeMML = encodeElement->IntAttribute("unicodeToEncodeMML", DEFAULT_MAX_MATCH_LENGTH);
     int encodeToUnicodeMML = encodeElement->IntAttribute("encodeToUnicodeMML", DEFAULT_MAX_MATCH_LENGTH);
+    int gcdCharSize = encodeElement->IntAttribute("gcdCharSize", DEFAULT_LEAST_UNIT_SIZE);
     const char* name = encodeElement->Attribute("name");
 
     tmzSP<tmz::tcMapping> encodeToUnicode = std::make_shared<tmz::tcMapping>(name, langCode, ENCODE_TO_UNICODE);
     encodeToUnicode->maxMatchLength(encodeToUnicodeMML);
+    encodeToUnicode->gcdCharSize(gcdCharSize);
     tmzSP<tmz::tcMapping> unicodeToEncode = std::make_shared<tmz::tcMapping>(name, langCode, UNICODE_TO_ENCODE);
     unicodeToEncode->maxMatchLength(unicodeToEncodeMML);
+    unicodeToEncode->gcdCharSize(gcdCharSize);
 
     tmzCollection<std::string> e2uFrom, u2eFrom, e2uTo, u2eTo;
 

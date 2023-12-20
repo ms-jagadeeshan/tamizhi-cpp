@@ -7,6 +7,9 @@ function(project_add_clang)
   list(FILTER _sources_and_headers_src EXCLUDE REGEX
        "${PROJECT_DIR_SRC}/core/core/")
 
+  list(FILTER _sources_and_headers_src EXCLUDE REGEX
+       "${PROJECT_DIR_SRC}/3rd-party/*")
+
   if(NOT WIN32)
     find_program(CLANG_FORMAT_EXECUTABLE clang-format
                  PATHS /usr/lib/llvm-6.0/bin/clang-format)

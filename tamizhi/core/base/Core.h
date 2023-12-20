@@ -8,6 +8,7 @@
 #include "tamizhi/core/base/Macros.h"
 #include "tamizhi/core/base/Memory.h"
 #include "tamizhi/core/base/Profiler.h"
+#include "tamizhi/core/base/UTF8Utils.h"
 #include "tamizhi/core/file/FilePath.h"
 #include "tamizhi/core/file/FileUtils.h"
 #include "tamizhi/core/version/VersionData.h"

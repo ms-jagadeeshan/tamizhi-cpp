@@ -80,6 +80,7 @@ endif()
 
 check_required_submodules()
 project_init_web_server()
+project_init_c4core()
 
 include_directories(${PROJECT_DIR_ROOT})
 # SRC directory (typical include)
