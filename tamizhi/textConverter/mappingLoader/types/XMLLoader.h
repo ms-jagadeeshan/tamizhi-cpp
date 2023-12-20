@@ -30,7 +30,7 @@ private:
     void readUnicodeToEncode(tinyxml2::XMLElement* encodeToUnicodeElement, tmzCollection<std::string>& from, tmzCollection<std::string>& to);
 
     // Implementation of write the mapping.
-    bool writeMappingInternal(const tmzSPCollection<tcMapping>& mapping, const crFilePath& file) override;
+    bool writeMappingInternal(const tmzSPCollection<tcMapping>& mappings, const crFilePath& file) override;
 
 private:
     // Store the XMLDocument.

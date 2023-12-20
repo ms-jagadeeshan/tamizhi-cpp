@@ -15,7 +15,7 @@ public:
     // Read the mapping from string data.
     static tmzSPCollection<tmz::tcMapping> readFromData(const std::string& data, const std::string dataFileType);
     // Write the mapping to a file.
-    static bool write(const tmzSPCollection<tmz::tcMapping>& mapping, const crFilePath& file);
+    static bool write(const tmzSPCollection<tmz::tcMapping>& mappings, const crFilePath& file);
 
 protected:
     static tmzSP<tmz::tcLoaderBase> getLoader(const std::string& dataFileType);

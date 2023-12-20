@@ -145,9 +145,68 @@ void tmz::tcXMLLoader::readUnicodeToEncode(tinyxml2::XMLElement* unicodeToEncode
 }
 /********************************************************************/
 
-bool tmz::tcXMLLoader::writeMappingInternal(const tmzSPCollection<tmz::tcMapping>& mapping, const crFilePath& file)
+bool tmz::tcXMLLoader::writeMappingInternal(const tmzSPCollection<tmz::tcMapping>& mappings, const crFilePath& file)
 {
-    return false;
+    tmzMap<std::string, tmzMap<std::string, tmzArray<tmzSP<tcMapping>, 2>>> langMap;
+    for (auto& mapping : mappings)
+    {
+        auto langCode = mapping->langCode();
+        if (langCode.empty())
+            langCode = "unknown";
+
+        auto encodeName = mapping->encodeName();
+        if (encodeName.empty())
+            encodeName = "unknown";
+
+        int index = static_cast<int>(mapping->mappingType());
+        langMap[langCode][encodeName][index] = mapping;
+    }
+    tinyxml2::XMLDocument xmlDoc;
+    tinyxml2::XMLElement* rootElement = xmlDoc.NewElement("root");
+    xmlDoc.InsertFirstChild(rootElement);
+
+    for (const auto& [langCode, encodeMap] : langMap)
+    {
+        tinyxml2::XMLElement* langElement = xmlDoc.NewElement("language");
+        langElement->SetAttribute("code", langCode.c_str());
+        rootElement->InsertEndChild(langElement);
+        for (const auto& [encodeName, encodeArray] : encodeMap)
+        {
+            tinyxml2::XMLElement* encodeElement = xmlDoc.NewElement("encode");
+            encodeElement->SetAttribute("name", encodeName.c_str());
+            langElement->InsertFirstChild(encodeElement);
+
+            auto e2uMapping = encodeArray[ENCODE_TO_UNICODE];
+            if (e2uMapping != nullptr)
+            {
+                encodeElement->SetAttribute("encodeToUnicodeMML", e2uMapping->maxMatchLength());
+                encodeElement->SetAttribute("gcdCharSize", e2uMapping->gcdCharSize());
+                for (const auto& [from, to] : *e2uMapping->mapping())
+                {
+                    tinyxml2::XMLElement* e2uElement = xmlDoc.NewElement("encodeToUnicode");
+                    e2uElement->SetAttribute("from", from.c_str());
+                    e2uElement->SetAttribute("to", to.c_str());
+                    encodeElement->InsertEndChild(e2uElement);
+                }
+            }
+
+            auto u2eMapping = encodeArray[UNICODE_TO_ENCODE];
+            if (u2eMapping != nullptr)
+            {
+                encodeElement->SetAttribute("unicodeToEncodeMML", u2eMapping->maxMatchLength());
+                encodeElement->SetAttribute("gcdCharSize", u2eMapping->gcdCharSize());
+                for (const auto& [from, to] : *u2eMapping->mapping())
+                {
+                    tinyxml2::XMLElement* u2eElement = xmlDoc.NewElement("unicodeToEncode");
+                    u2eElement->SetAttribute("from", from.c_str());
+                    u2eElement->SetAttribute("to", to.c_str());
+                    encodeElement->InsertEndChild(u2eElement);
+                }
+            }
+        }
+    }
+
+    return xmlDoc.SaveFile(file.get().c_str()) == tinyxml2::XML_SUCCESS;
 }
 
 /********************************************************************/

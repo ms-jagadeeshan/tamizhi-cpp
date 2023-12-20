@@ -40,9 +40,9 @@ tmzSPCollection<tmz::tcMapping> tmz::tcLoaderBase::readMapping()
 
 /********************************************************************/
 
-bool tmz::tcLoaderBase::writeMapping(const tmzSPCollection<tmz::tcMapping>& mapping, const crFilePath& file)
+bool tmz::tcLoaderBase::writeMapping(const tmzSPCollection<tmz::tcMapping>& mappings, const crFilePath& file)
 {
-    return writeMappingInternal(mapping, file);
+    return writeMappingInternal(mappings, file);
 }
 
 /********************************************************************/

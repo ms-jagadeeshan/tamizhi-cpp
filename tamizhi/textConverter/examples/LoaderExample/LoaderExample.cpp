@@ -38,4 +38,6 @@ int main(void)
     timer.printTimeElapsed();
     ProfilerStop();
     tmz::saveToFile(result, crFilePath("data://tests/encodeToUnicode.txt"));
+
+    tmz::tcMappingLoader::write(mappings, crFilePath("data://tests/ta_dup_mappings.xml"));
 }
