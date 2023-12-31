@@ -28,7 +28,7 @@ int main(void)
     auto result = mappings[1]->convert(unicodeData);
     timer.printTimeElapsed();
 
-    // tmz::saveToFile(result, crFilePath("data://tests/unicodeToEncode.txt"));
+    tmz::saveToFile(result, crFilePath("data://tests/unicodeToEncode.txt"));
 
     std::string encodeData;
     // tmz::loadFromFile(encodeData, crFilePath("data://tests/unicodeToEncode.txt"));
@@ -38,4 +38,6 @@ int main(void)
     timer.printTimeElapsed();
     ProfilerStop();
     tmz::saveToFile(result, crFilePath("data://tests/encodeToUnicode.txt"));
+
+    tmz::tcMappingLoader::write(mappings, crFilePath("data://tests/ta_dup_mappings.xml"));
 }

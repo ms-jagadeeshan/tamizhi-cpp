@@ -56,20 +56,22 @@ double crTimeProfiler::getTimeElapsed()
 
 /********************************************************************/
 
-void crTimeProfiler::printTimeElapsed()
+void crTimeProfiler::printTimeElapsed(const std::string& str)
 {
+    std::chrono::duration<double> elapsedDuration;
     if (mUseHighResolutionClock)
     {
         auto currentHRC = getCurrentTimeHRC();
-        std::chrono::duration<double> elapsedDuration = currentHRC - mStartHRC;
-        tmzPrint("[%s] Time elapsed since start is : %f sec\n", mName.c_str(), elapsedDuration.count());
+        elapsedDuration = currentHRC - mStartHRC;
     }
     else
     {
         auto currentSC = getCurrentTimeSC();
-        std::chrono::duration<double> elapsedDuration = currentSC - mStartSC;
-        tmzPrint("[%s] Time elapsed since start is : %f sec\n", mName.c_str(), elapsedDuration.count());
+        elapsedDuration = currentSC - mStartSC;
     }
+
+    auto addon = str.empty() ? "" : "[" + str + "]";
+    tmzPrint("[%s]%s Time elapsed since start is : %f sec\n", mName.c_str(), addon.c_str(), elapsedDuration.count());
 }
 
 /********************************************************************/

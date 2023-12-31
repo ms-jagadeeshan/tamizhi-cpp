@@ -38,15 +38,15 @@ tmzCollection<tmzSP<tmz::tcMapping>> tmz::tcMappingLoader::readFromData(const st
 
 /********************************************************************/
 
-bool tmz::tcMappingLoader::write(const tmzSPCollection<tmz::tcMapping>& mapping, const crFilePath& file)
+bool tmz::tcMappingLoader::write(const tmzSPCollection<tmz::tcMapping>& mappings, const crFilePath& file)
 {
-    checkAndReturnValue(!mapping.empty(), "[Mapping Loader] Mapping is empty", false);
+    checkAndReturnValue(!mappings.empty(), "[Mapping Loader] Mapping is empty", false);
 
     // Get the loader.
     tmzSP<tmz::tcLoaderBase> loader = tmz::tcMappingLoader::getLoader(file.getExtension());
     checkAndReturnValue(loader != nullptr, "", false);
 
-    return loader->writeMapping(mapping, file);
+    return loader->writeMapping(mappings, file);
 }
 
 /********************************************************************/

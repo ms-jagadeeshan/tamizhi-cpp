@@ -20,8 +20,6 @@ private:
     tmzSPCollection<tcMapping> readMappingInternal() override;
     // Actual Implementation of reading.
     tmzSPCollection<tcMapping> readMappingImpl(tinyxml2::XMLElement* rootElement);
-    // Implementation of write the mapping.
-    bool writeMappingInternal(const tmzSPCollection<tcMapping>& mapping, const crFilePath& file) override;
     // Read the language element.
     tmzSPCollection<tcMapping> readLanguage(tinyxml2::XMLElement* langElement);
     // Read the encode element.
@@ -31,6 +29,9 @@ private:
     // Read the unicodeToEncode element.
     void readUnicodeToEncode(tinyxml2::XMLElement* encodeToUnicodeElement, tmzCollection<std::string>& from, tmzCollection<std::string>& to);
 
+    // Implementation of write the mapping.
+    bool writeMappingInternal(const tmzSPCollection<tcMapping>& mappings, const crFilePath& file) override;
+
 private:
     // Store the XMLDocument.
     tinyxml2::XMLDocument mDoc;
@@ -38,6 +39,8 @@ private:
     tinyxml2::XMLElement* mRootElement;
     // Default max match length.
     static const int DEFAULT_MAX_MATCH_LENGTH = 4;
+    // Default least character unit size(in bytes).
+    static const int DEFAULT_LEAST_UNIT_SIZE = 1;
 };
 
 } // namespace tmz

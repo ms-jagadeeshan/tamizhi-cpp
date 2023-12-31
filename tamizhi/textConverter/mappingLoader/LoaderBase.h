@@ -25,13 +25,13 @@ public:
     // Read the mapping from string data.
     tmzSPCollection<tmz::tcMapping> readMapping();
     // Write the mapping to file.
-    bool writeMapping(const tmzSPCollection<tmz::tcMapping>& mapping, const crFilePath& file);
+    bool writeMapping(const tmzSPCollection<tmz::tcMapping>& mappings, const crFilePath& file);
 
 protected:
     // Internal implementation of mapping reader.
     virtual tmzSPCollection<tmz::tcMapping> readMappingInternal() = 0;
     // Internal implementation of mapping writer.
-    virtual bool writeMappingInternal(const tmzSPCollection<tmz::tcMapping>& mapping, const crFilePath& file) = 0;
+    virtual bool writeMappingInternal(const tmzSPCollection<tmz::tcMapping>& mappings, const crFilePath& file) = 0;
 
 protected:
     // Store the file path.

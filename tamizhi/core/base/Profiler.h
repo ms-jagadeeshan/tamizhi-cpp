@@ -25,7 +25,7 @@ public:
     // Get elapsed time since start.
     double getTimeElapsed();
     // Print time elapsed.
-    void printTimeElapsed();
+    void printTimeElapsed(const std::string& str = "");
 
 private:
     // Stores the steady clock for start and end.
