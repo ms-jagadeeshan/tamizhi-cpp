@@ -15,7 +15,7 @@ public:
     }
 
     crRawPointer(const crRawPointer& ptr)
-        : mPtr(ptr)
+        : mPtr(const_cast<T*>(ptr.get()))
     {
     }
     explicit crRawPointer(const std::shared_ptr<T>& ptr)

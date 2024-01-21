@@ -10,6 +10,10 @@ option(BUILD_DOCS "Build documentation" ON)
 option(BUILD_EXAMPLES "Build Examples" ON)
 option(BUILD_UNIT_TESTS "Build Unit Tests" ON)
 option(LINT_SOURCE "Lint sources" ON)
+# Off, Minimal, Detailed
+set(STACK_TRACE_LEVEL
+    "Detailed"
+    CACHE STRING "Stack trace level")
 set(PYTHON_VERSION
     "Default"
     CACHE STRING "The version of Python to build the wrappers against.")

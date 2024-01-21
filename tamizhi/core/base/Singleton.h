@@ -10,10 +10,12 @@ class crSingleton
 public:
     static DerivedT*& getInstance()
     {
+        static DerivedT* mInstance = nullptr;
+        static std::once_flag onceFlag;
         std::call_once(onceFlag, []() {
-            instance = new DerivedT();
+            mInstance = new DerivedT();
         });
-        return instance;
+        return mInstance;
     }
 
     // Delete copy constructor and copy assignment operator
@@ -24,11 +26,7 @@ public:
 
 protected:
     crSingleton() = default;
-    ~crSingleton() = default;
-
-private:
-    static DerivedT* instance;
-    static std::once_flag onceFlag;
+    virtual ~crSingleton() = default;
 };
 
 /********************************************************************/
