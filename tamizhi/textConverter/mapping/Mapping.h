@@ -35,7 +35,7 @@ public:
     bool insert(const tmzCollection<std::string>& keys, const tmzCollection<std::string>& values);
 
     // Apply the mappings to the string.
-    std::string convert(const std::string& input);
+    std::string convert(const std::string& input) const;
 
     // Getters.
     // Get the language code.

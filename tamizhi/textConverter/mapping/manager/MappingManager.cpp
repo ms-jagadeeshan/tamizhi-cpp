@@ -5,6 +5,17 @@
 
 /********************************************************************/
 
+void tmz::tcMappingManager::registerMapping(const tmzCollection<tmzSP<tmz::tcMapping>>& mappings)
+{
+    const auto& ref = getInstance();
+    for (auto& mapping : mappings)
+    {
+        ref->registerMapping(mapping);
+    }
+}
+
+/********************************************************************/
+
 void tmz::tcMappingManager::registerMapping(const tmzSP<tmz::tcMapping>& mapping)
 {
     const auto& ref = getInstance();
@@ -25,7 +36,7 @@ void tmz::tcMappingManager::unregisterMapping(const std::string& encodeName, tcC
 
 /********************************************************************/
 
-tmzCollection<std::string> tmz::tcMappingManager::getLangList()
+tmzCollection<std::string> tmz::tcMappingManager::getLangList() const
 {
     const auto& ref = getInstance();
     tmzCollection<std::string> langs;
@@ -35,12 +46,27 @@ tmzCollection<std::string> tmz::tcMappingManager::getLangList()
 
 /********************************************************************/
 
-tmzCollection<std::string> tmz::tcMappingManager::getEncodingList()
+tmzCollection<std::string> tmz::tcMappingManager::getEncodingList(const std::string& langCode) const
 {
     const auto& ref = getInstance();
     tmzCollection<std::string> encodings;
-    std::transform(ref->mEncodeMap.begin(), ref->mEncodeMap.end(), std::back_inserter(encodings), tmz::Lambdas::extractKey);
+    if (langCode == "")
+        std::transform(ref->mEncodeMap.begin(), ref->mEncodeMap.end(), std::back_inserter(encodings), tmz::Lambdas::extractKey);
+    else
+    {
+        auto it = ref->mLangMap.find(langCode);
+        if (it != ref->mLangMap.end())
+            std::transform(it->second.begin(), it->second.end(), std::back_inserter(encodings), tmz::Lambdas::extractKey);
+    }
     return encodings;
+}
+
+/********************************************************************/
+
+const tmzSP<tmz::tcMapping>& tmz::tcMappingManager::getMapping(const std::string& encodeName, tcConversionType mappingType) const
+{
+    const auto& ref = getInstance();
+    return ref->mEncodeMap[encodeName][mappingType];
 }
 
 /********************************************************************/

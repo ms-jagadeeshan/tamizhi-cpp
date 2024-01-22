@@ -13,10 +13,11 @@ class tcMappingManager : public crSingleton<tcMappingManager>
     TMZ_AUTO_SINGLETON(tcMappingManager);
 
 public:
-    tcMappingManager();
-    ~tcMappingManager();
+    tcMappingManager() = default;
+    ~tcMappingManager() = default;
 
     // Register mapping to mapping manager.
+    void registerMapping(const tmzCollection<tmzSP<tmz::tcMapping>>& mappings);
     void registerMapping(const tmzSP<tcMapping>& mapping);
     // De-register mapping from mapping manager.
     void unregisterMapping(const tmzSP<tcMapping>& mapping);
@@ -24,11 +25,11 @@ public:
 
     // Getters.
     // Get the list of languages of available mappings.
-    tmzCollection<std::string> getLangList();
+    tmzCollection<std::string> getLangList() const;
     // Get the list of encoding names of available mappings.
-    tmzCollection<std::string> getEncodingList();
+    tmzCollection<std::string> getEncodingList(const std::string& langCode = "") const;
     // Get the mapping by encode name and mapping type.
-    const tmzSP<tcMapping>& getMapping(const std::string& encodeName, tcConversionType mappingType);
+    const tmzSP<tcMapping>& getMapping(const std::string& encodeName, tcConversionType mappingType) const;
 
 private:
     // Internal implementation of register mapping.

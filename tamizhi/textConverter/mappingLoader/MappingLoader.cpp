@@ -23,7 +23,7 @@ tmzCollection<tmzSP<tmz::tcMapping>> tmz::tcMappingLoader::read(const crFilePath
 
 /********************************************************************/
 
-tmzCollection<tmzSP<tmz::tcMapping>> tmz::tcMappingLoader::readFromData(const std::string& data, const std::string dataFileType)
+tmzCollection<tmzSP<tmz::tcMapping>> tmz::tcMappingLoader::readFromString(const std::string& data, const std::string dataFileType)
 {
     checkAndReturnValue(!crUtils::empty(data), "[Mapping Loader] Data is empty", {});
 

@@ -12,6 +12,9 @@
 #include <vector>
 
 #include "tamizhi/core/base/RawPointer.h"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 // Shared Pointers.
 template <typename T>
@@ -20,6 +23,10 @@ using tmzSP = std::shared_ptr<T>;
 // Unique Pointers.
 template <typename T>
 using tmzUP = std::unique_ptr<T>;
+
+// Raw Pointers.
+template <typename T>
+using tmzRP = tmz::crRawPointer<T>;
 
 // Vector of objections.
 template <typename T>

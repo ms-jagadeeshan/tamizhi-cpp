@@ -79,32 +79,34 @@ bool tmz::tcMapping::insert(const tmzCollection<std::string>& keys, const tmzCol
 
 /********************************************************************/
 
-std::string tmz::tcMapping::convert(const std::string& input)
+std::string tmz::tcMapping::convert(const std::string& input) const
 {
     std::string result;
+    auto inputEnd = input.end();
+    auto maxMatchLength = static_cast<std::ptrdiff_t>(mMaxMatchLength);
 
-    for (auto it = input.begin(); it != input.end();)
+    for (auto it = input.begin(); it != inputEnd;)
     {
-        const auto& old_it = it;
+        const auto old_it = it;
+        auto distanceToEnd = std::distance(it, input.end());
+        auto len = std::min(distanceToEnd, maxMatchLength);
+        size_t gcdLocal = (len != maxMatchLength) ? 1 : mGcdCharSize;
 
-        for (auto len = std::min(std::distance(it, input.end()), static_cast<std::ptrdiff_t>(mMaxMatchLength));
-             len > 0; len = len - mGcdCharSize)
+        for (; len > 0; len = len - gcdLocal)
         {
-            auto substr = std::string(it, it + len);
-            auto mappingItr = mMapping->find(substr);
-
+            auto mappingItr = mMapping->find(std::string(it, it + len));
             if (mappingItr != mMapping->end())
             {
-                result += mappingItr->second;
+                result.append(mappingItr->second);
                 std::advance(it, len);
                 break;
             }
         }
 
         // If not found in mapping, just increment iterator.
-        if (old_it == it)
+        if (old_it == it && it != inputEnd)
         {
-            result += *it++;
+            result.append(1, *it++);
         }
     }
     return result;

@@ -60,6 +60,7 @@ project(
   LANGUAGES CXX C
   VERSION ${PROJECT_VERSION_STRING})
 
+include(FetchContent)
 include(VersionData)
 include(HandleOptions)
 include(HandleCompilationFlags)
@@ -81,6 +82,8 @@ endif()
 check_required_submodules()
 project_init_web_server()
 project_init_c4core()
+project_init_json()
+project_init_backward()
 
 include_directories(${PROJECT_DIR_ROOT})
 # SRC directory (typical include)
