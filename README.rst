@@ -17,6 +17,7 @@ Optional dependency
 -------------------
 
 .. code-block:: bash
+
    sudo apt-get install binutils-dev
 
 .. code-block:: bash
